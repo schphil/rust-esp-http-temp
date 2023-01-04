@@ -142,26 +142,6 @@ fn main() -> ! {
     let pin_mutex = Mutex::new(RefCell::new(pin));
     let adc1_mutex = Mutex::new(RefCell::new(adc1));
 
-    // // Create tcp socket
-    // let tcp_rx_buffer = tcp::SocketBuffer::new(vec![0; 64]);
-    // let tcp_tx_buffer = tcp::SocketBuffer::new(vec![0; 128]);
-    // let tcp_socket = tcp::Socket::new(tcp_rx_buffer, tcp_tx_buffer);
-
-    // let mut sockets = SocketSet::new(vec![]);
-
-    // let mut delay = Delay::new(&clocks);
-
-    // loop {
-    //     critical_section::with(|cs| {
-    //         let pin = pin_mutex.borrow_ref_mut(cs);
-    //         let adc1 = adc1_mutex.borrow_ref_mut(cs);
-    //         let pin_value = temp_sensor::read_temp_send(adc1, pin);
-    //         println!("PIN0 ADC reading = {}", pin_value);
-    //     });
-
-    //     delay.delay_ms(1500u32);
-    // }
-
     let mut rx_buffer = [0u8; 1536];
     let mut tx_buffer = [0u8; 1536];
     let mut socket = network.get_socket(&mut rx_buffer, &mut tx_buffer);
@@ -228,9 +208,7 @@ fn main() -> ! {
             );
 
             if !time_out {
-                socket
-                    .write_all(af.as_bytes())
-                    .unwrap();
+                socket.write_all(af.as_bytes()).unwrap();
                 socket.flush().unwrap();
             }
 
