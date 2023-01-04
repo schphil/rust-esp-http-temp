@@ -1,0 +1,30 @@
+[package]
+name = "rust_esp_http_temp"
+version = "0.1.0"
+authors = ["Philipp Scheff <philippscheff@me.com>"]
+edition = "2021"
+license = "MIT OR Apache-2.0"
+
+[dependencies]
+arrform = "0.1.1"
+critical-section = "1.1.1"
+embedded-io = { version = "0.3", default-features = false }
+embedded-svc = { version = "0.23.1", default-features = false, features = []}
+enumset = { version = "1", default-features = false }
+esp32c3-hal = "0.4.0"
+esp-println = {git = "https://github.com/esp-rs/esp-println.git", features = ["esp32c3", "log"],rev = "fc4e9cf"}
+esp-wifi = {git = "https://github.com/esp-rs/esp-wifi.git", features = ["esp32c3","embedded-svc","wifi"], rev = "4808b31"}
+heapless = { version = "0.7.14", default-features = false }
+libm = "0.2.5"
+log = "0.4.17"
+serde = {version ="1.0.152", default-features = false}
+serde-json-core = {version = "0.5.0", features = ["heapless"]}
+smoltcp = { version = "0.8.0", default-features = false, features = ["log", "socket-tcp"] }
+thiserror-no-std = "2.0.2"
+
+esp-backtrace = { version = "0.4.0", features = ["esp32c3", "panic-handler", "print-uart"] }
+riscv-rt = { version = "0.10", optional = true }
+
+[features]
+default = ["rt"]
+rt = ["riscv-rt"]
